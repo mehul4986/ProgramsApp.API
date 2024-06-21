@@ -1,7 +1,7 @@
 namespace ProgramsApp.API.Test
 {
     [TestClass]
-    public class UnitTest1
+    public class GetApplicationForm
     {
         [TestMethod]
         public void TestMethod1()
