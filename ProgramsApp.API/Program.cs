@@ -1,4 +1,8 @@
 using Microsoft.OpenApi.Models;
+using ProgramsApp.API.Repositories;
+using ProgramsApp.API.Repositories.Interfaces;
+using ProgramsApp.API.Services;
+using ProgramsApp.API.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,12 +15,30 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSwaggerGen(option =>
 {
-    option.SwaggerDoc("v1", new OpenApiInfo { Title = "Programs Application API", Version = "v1" });
+    option.SwaggerDoc("v1", new OpenApiInfo { Title = "Programs - Applications API", Version = "v1" });
 });
 
 builder.Services.AddLogging((loggingBuilder) =>
 {
     loggingBuilder.SetMinimumLevel(LogLevel.Error); // Update default MEL-filter
+});
+
+builder.Services.AddSingleton<IApplicationFormRepository, ApplicationFormRepository>();
+builder.Services.AddSingleton<IApplicationFormService, ApplicationFormService>();
+
+builder.Services.AddSingleton<ISubmitAppService, SubmitAppService>();
+builder.Services.AddSingleton<ISubmitAppRepository, SubmitAppRepository>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllOrigins",
+        policy =>
+        {
+            policy
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
 });
 
 var app = builder.Build();
@@ -29,8 +51,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
+app.UseCors("AllOrigins");
 
 app.MapControllers();
 

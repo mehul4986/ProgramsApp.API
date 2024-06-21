@@ -12,10 +12,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="DTOs\" />
-		<Folder Include="Helper\" />
-		<Folder Include="Repositories\Interfaces\" />
-		<Folder Include="Services\Interfaces\" />
+	  <None Update="Properties\launchSettings.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 
 </Project>

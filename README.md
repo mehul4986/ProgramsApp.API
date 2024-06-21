@@ -30,12 +30,16 @@ This assessment has a ProgramsApp.API solution consisting of 4 APIs.
 
 1 - Clone the solution on your machine and then build the solution.
 
-2 - In your Cosmos Emulator create a Databse and container
+2 - In your Cosmos Emulator create a Databse ProgramApp and container Program
     
 3 - Replace the connection string into launchSettings.json
 
 ```bash
-  "ExchangeRateConnStr": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=CurrencyManager;Integrated Security=True;Integrated Security=SSPI;",
+    "CosmosDBAccountUri": "https://localhost:8081/",
+    "CosmosDBAccountPrimaryKey": "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==",
+    "CosmosDbName": "ProgramApp",
+    "CosmosDbContainerName": "Program",
+    "CosmosAppDbContainerName": "Applications"
 ```
 
 4 - Rebuild the solution and then run it. It should open the swagger and you are ready to test.
@@ -44,24 +48,84 @@ This assessment has a ProgramsApp.API solution consisting of 4 APIs.
 #### Create an Application Form
 
 ```http
-  POST https://localhost:7177/CreateApp
+  POST https://localhost:7177/api/CreateApp
 ```
 
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `basecode` | `string` | **Required**. Base Currency Code, from which you want to exchange |
-| `targetcode` | `string` | **Required**. Target Currency Code,to which you want to exchange |
-| `amount` | `decimal` | **Required**. Amount that you want to convert |
+```json
+{
+   "id":"string",
+   "programId":"string",
+   "programTitle":"string",
+   "programDescription":"string",
+   "questionfields":[
+      {
+         "fieldId":"string",
+         "fieldTitle":"string",
+         "fieldValue":"string",
+         "fieldType":"string",
+         "options":[
+            "string"
+         ],
+         "required":true,
+         "internal":true,
+         "hide":true
+      }
+   ],
+   "additionalQuestionfield":[
+      {
+         "fieldId":"string",
+         "fieldTitle":"string",
+         "fieldValue":"string",
+         "fieldType":"string",
+         "options":[
+            "string"
+         ],
+         "required":true
+      }
+   ]
+}
+```
 
 #### Update the Application Form
 
 ```http
-  PUT https://localhost:7177/UpdateApp
+  PUT https://localhost:7177/api/UpdateApp
 ```
 
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `FromDate`      | `Date` | **Optional**. From which date you want to retrieve the conversion history.  |
+```json
+{
+   "id":"string",
+   "programId":"string",
+   "programTitle":"string",
+   "programDescription":"string",
+   "questionfields":[
+      {
+         "fieldId":"string",
+         "fieldTitle":"string",
+         "fieldValue":"string",
+         "fieldType":"string",
+         "options":[
+            "string"
+         ],
+         "required":true,
+         "internal":true,
+         "hide":true
+      }
+   ],
+   "additionalQuestionfield":[
+      {
+         "fieldId":"string",
+         "fieldTitle":"string",
+         "fieldValue":"string",
+         "fieldType":"string",
+         "options":[
+            "string"
+         ],
+         "required":true
+      }
+   ]
+}
+```
 
 #### Get the Application Form
 
@@ -71,7 +135,7 @@ This assessment has a ProgramsApp.API solution consisting of 4 APIs.
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
-| `FromDate`      | `Date` | **Optional**. From which date you want to retrieve the conversion API history.  |
+| `id`      | `string` | **Required**. Enter the id of the form to retrive it.  |
 
 #### Submit the Application Form
 
@@ -79,11 +143,41 @@ This assessment has a ProgramsApp.API solution consisting of 4 APIs.
   POST https://localhost:7177/SubmitApp
 ```
 
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `basecode` | `string` | **Required**. Base Currency Code, from which you want to exchange |
-| `targetcode` | `string` | **Required**. Target Currency Code,to which you want to exchange |
-| `amount` | `decimal` | **Required**. Amount that you want to convert |
+
+```json
+{
+   "id":"string",
+   "programId":"string",
+   "programTitle":"string",
+   "programDescription":"string",
+   "questionfields":[
+      {
+         "fieldId":"string",
+         "fieldTitle":"string",
+         "fieldValue":"string",
+         "fieldType":"string",
+         "options":[
+            "string"
+         ],
+         "required":true,
+         "internal":true,
+         "hide":true
+      }
+   ],
+   "additionalQuestionfield":[
+      {
+         "fieldId":"string",
+         "fieldTitle":"string",
+         "fieldValue":"string",
+         "fieldType":"string",
+         "options":[
+            "string"
+         ],
+         "required":true
+      }
+   ]
+}
+```
 
 ## Author
 
